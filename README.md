@@ -9,13 +9,11 @@ CompTIA Security+ (SY0-701) | CompTIA CySA+ (CS0-003)
 
 ## Skills
 
-**SIEM & Log Analysis:** Splunk, Kibana, Elasticsearch  
-**Network Analysis:** Wireshark, Suricata  
-**Endpoint Detection:** Sysmon, Windows Event Logs  
-**Cloud:** AWS EC2, Azure  
-**Vulnerability Management:** Nessus, GitHub Actions CI/CD  
-**Scripting:** Python, PowerShell, Bash  
-**Frameworks:** MITRE ATT&CK, NIST CSF, CVSS, OWASP Top 10  
+**Languages:** Python, Java, C#, SQL, HTML, CSS, Pandas  
+**Security Tools:** Splunk, Sysmon, Wireshark, Tenable Nessus, T-Pot, Kibana, Elasticsearch, Windows Event Viewer, MITRE ATT&CK  
+**Cloud & DevOps:** AWS EC2, Azure, GitHub Actions, Git, VMware  
+**Systems & Scripting:** PowerShell, Linux CLI, Bash  
+**Frameworks & Concepts:** NIST CSF, CVSS, OWASP Top 10, PCI-DSS, SOX, SIEM, Incident Response, Threat Detection, Log Analysis, Vulnerability Management, IOC Analysis, Threat Hunting, Network Traffic Analysis, OSINT  
 
 ## Projects
 
