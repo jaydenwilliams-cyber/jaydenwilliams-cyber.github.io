@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jayden Williams — See You Space Cowboy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080810;
+    --bg2: #0c0c18;
+    --panel: #0e0e1c;
+    --border: #1a1a30;
+    --gold: #d4a843;
+    --gold2: #f0c060;
+    --orange: #c85a2a;
+    --text: #b8b8cc;
+    --text-dim: #4a4a6a;
+    --mono: 'Space Mono', monospace;
+    --display: 'Bebas Neue', cursive;
+    --serif: 'Playfair Display', serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--mono); font-size: 13px; line-height: 1.6; overflow-x: hidden; }
+
+  .stars {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 75% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(2px 2px at 55% 45%, rgba(212,168,67,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 20% 90%, rgba(212,168,67,0.2) 0%, transparent 100%);
+  }
+
+  .smoke {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(212,168,67,0.03) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 60% at 80% 100%, rgba(200,90,42,0.04) 0%, transparent 60%);
+  }
+
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 0 60px; height: 64px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(212,168,67,0.1);
+    background: rgba(8,8,16,0.92); backdrop-filter: blur(12px);
+  }
+  .nav-logo { font-family: var(--display); font-size: 18px; letter-spacing: 6px; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 12px; }
+  .nav-ep { font-family: var(--serif); font-style: italic; font-size: 11px; color: var(--text-dim); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 9px; letter-spacing: 3px; color: var(--text-dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 60px 80px; position: relative; overflow: hidden; }
+  .hero-glow { position: absolute; top: 30%; right: -10%; width: 50%; height: 60%; background: radial-gradient(ellipse, rgba(212,168,67,0.05) 0%, transparent 70%); pointer-events: none; }
+  .session-tag { font-size: 9px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; opacity: 0.8; }
+  .session-tag::before, .session-tag::after { content: '—'; color: var(--text-dim); }
+  .hero-name { font-family: var(--display); font-size: clamp(70px, 10vw, 130px); line-height: 0.88; letter-spacing: 4px; color: #fff; margin-bottom: 8px; }
+  .hero-name .g { color: var(--gold); }
+  .hero-role { font-family: var(--serif); font-style: italic; font-size: clamp(16px, 2.5vw, 26px); color: var(--text-dim); letter-spacing: 3px; margin-bottom: 28px; }
+  .hero-quote { font-size: 11px; color: var(--text-dim); border-left: 2px solid var(--gold); padding-left: 16px; margin-bottom: 32px; max-width: 420px; font-style: italic; line-height: 1.9; }
+  .hero-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+  .badge { font-size: 9px; letter-spacing: 2px; padding: 5px 10px; border: 1px solid var(--border); color: var(--text-dim); text-transform: uppercase; }
+  .badge.g { border-color: rgba(212,168,67,0.5); color: var(--gold); background: rgba(212,168,67,0.05); }
+  .badge.o { border-color: rgba(200,90,42,0.5); color: #e07850; background: rgba(200,90,42,0.05); }
+  .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .btn { font-family: var(--mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; padding: 11px 20px; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
+  .btn-gold { background: var(--gold); color: #000; font-weight: 700; }
+  .btn-gold:hover { background: var(--gold2); transform: translate(-2px,-2px); box-shadow: 3px 3px 0 var(--orange); }
+  .btn-out { border: 1px solid rgba(212,168,67,0.3); color: var(--text-dim); background: transparent; }
+  .btn-out:hover { border-color: var(--gold); color: var(--gold); }
+
+  .divider { display: flex; align-items: center; gap: 20px; padding: 0 60px; margin: 16px 0; position: relative; z-index: 1; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(212,168,67,0.2), transparent); }
+  .divider-label { font-size: 9px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; white-space: nowrap; }
+
+  .sec { padding: 80px 60px; position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+  .sec-head { margin-bottom: 44px; }
+  .sec-num { font-size: 9px; letter-spacing: 3px; color: var(--orange); text-transform: uppercase; margin-bottom: 6px; }
+  .sec-title { font-family: var(--display); font-size: clamp(40px, 5vw, 66px); letter-spacing: 4px; color: #fff; line-height: 1; }
+  .sec-sub { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+
+  .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 60px; align-items: start; }
+  .about-text p { color: var(--text-dim); margin-bottom: 14px; line-height: 1.9; font-size: 12px; }
+  .about-text strong { color: var(--gold); }
+  .stat-panel { border: 1px solid var(--border); background: var(--panel); overflow: hidden; }
+  .stat-panel-head { background: rgba(212,168,67,0.06); border-bottom: 1px solid var(--border); padding: 11px 20px; font-size: 9px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  .stat-row { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-k { font-size: 9px; letter-spacing: 1px; color: var(--text-dim); }
+  .stat-v { font-family: var(--display); font-size: 20px; color: var(--gold); letter-spacing: 2px; }
+
+  .proj-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .proj { background: var(--panel); padding: 30px 36px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; text-decoration: none; color: inherit; transition: background 0.2s; position: relative; overflow: hidden; }
+  .proj::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, var(--gold), transparent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .proj:hover { background: #10101e; }
+  .proj:hover::after { transform: scaleX(1); }
+  .proj.feat { background: rgba(212,168,67,0.03); border-left: 2px solid var(--gold); }
+  .proj-ep { font-size: 9px; letter-spacing: 3px; color: var(--orange); text-transform: uppercase; margin-bottom: 7px; }
+  .proj-name { font-family: var(--display); font-size: 24px; letter-spacing: 2px; color: #fff; margin-bottom: 9px; }
+  .proj-desc { font-size: 11px; color: var(--text-dim); line-height: 1.8; max-width: 560px; margin-bottom: 14px; }
+  .tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tag { font-size: 9px; letter-spacing: 1px; padding: 3px 7px; border: 1px solid var(--border); color: var(--text-dim); text-transform: uppercase; }
+  .proj-link { font-size: 10px; color: var(--text-dim); transition: all 0.2s; align-self: center; writing-mode: vertical-rl; text-transform: uppercase; letter-spacing: 2px; }
+  .proj:hover .proj-link { color: var(--gold); }
+
+  .skills-tbl { border: 1px solid var(--border); overflow: hidden; background: var(--panel); }
+  .skills-hdr { background: rgba(212,168,67,0.06); border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 170px 1fr; padding: 9px 22px; font-size: 9px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  .skill-row { display: grid; grid-template-columns: 170px 1fr; border-bottom: 1px solid var(--border); padding: 13px 22px; align-items: center; gap: 16px; }
+  .skill-row:last-child { border-bottom: none; }
+  .skill-cat { font-size: 9px; letter-spacing: 1px; color: var(--text-dim); text-transform: uppercase; }
+  .skill-items { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { font-size: 9px; padding: 3px 7px; background: var(--bg); border: 1px solid var(--border); color: var(--text-dim); }
+
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; background: var(--border); }
+  .cert-card { background: var(--panel); padding: 26px 28px; text-decoration: none; color: inherit; display: block; transition: background 0.2s; position: relative; }
+  .cert-card:hover { background: #10101e; }
+  .cert-ep { font-size: 9px; letter-spacing: 3px; color: var(--orange); text-transform: uppercase; margin-bottom: 10px; }
+  .cert-name { font-family: var(--display); font-size: 20px; letter-spacing: 2px; color: #fff; margin-bottom: 5px; line-height: 1.1; }
+  .cert-detail { font-size: 9px; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 14px; line-height: 1.6; }
+  .cert-st { font-size: 9px; letter-spacing: 2px; padding: 3px 8px; text-transform: uppercase; display: inline-block; }
+  .cert-st.earned { background: rgba(57,211,83,0.08); border: 1px solid rgba(57,211,83,0.4); color: #39d353; }
+  .cert-st.prog { background: rgba(200,90,42,0.08); border: 1px solid rgba(200,90,42,0.4); color: var(--orange); }
+  .cert-dl { position: absolute; bottom: 24px; right: 24px; font-size: 9px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; opacity: 0; transition: opacity 0.2s; }
+  .cert-card:hover .cert-dl { opacity: 1; }
+
+  .writing-feat { border: 1px solid rgba(212,168,67,0.2); background: var(--panel); padding: 38px; text-decoration: none; color: inherit; display: block; transition: all 0.2s; position: relative; overflow: hidden; }
+  .writing-feat::before { content: '"'; position: absolute; top: -20px; right: 28px; font-family: var(--serif); font-size: 180px; color: rgba(212,168,67,0.04); pointer-events: none; line-height: 1; }
+  .writing-feat:hover { border-color: var(--gold); background: #10101e; }
+  .writing-ep { font-size: 9px; letter-spacing: 3px; color: var(--orange); text-transform: uppercase; margin-bottom: 12px; }
+  .writing-title { font-family: var(--display); font-size: clamp(26px, 4vw, 46px); letter-spacing: 3px; color: #fff; margin-bottom: 12px; line-height: 1; }
+  .writing-desc { font-size: 11px; color: var(--text-dim); line-height: 1.8; max-width: 580px; margin-bottom: 18px; }
+  .writing-cta { font-size: 10px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+
+  .resume-panel { border: 1px solid var(--border); background: var(--panel); overflow: hidden; }
+  .resume-hdr { background: rgba(212,168,67,0.06); border-bottom: 1px solid var(--border); padding: 12px 26px; display: flex; justify-content: space-between; align-items: center; }
+  .resume-hdr-t { font-size: 9px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  .resume-body { padding: 26px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .resume-info { font-size: 11px; color: var(--text-dim); line-height: 1.9; }
+  .resume-info strong { color: var(--text); }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-h { font-family: var(--display); font-size: clamp(44px, 6vw, 76px); letter-spacing: 4px; color: #fff; line-height: 0.9; margin-bottom: 18px; }
+  .contact-h span { color: var(--gold); }
+  .contact-p { font-size: 11px; color: var(--text-dim); line-height: 1.9; margin-bottom: 26px; }
+  .contact-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .contact-item { background: var(--panel); padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; text-decoration: none; transition: background 0.2s; gap: 12px; }
+  .contact-item:hover { background: #10101e; }
+  .c-label { font-size: 9px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 3px; }
+  .c-val { font-size: 11px; color: var(--text); word-break: break-all; }
+  .c-arr { color: var(--text-dim); font-size: 14px; flex-shrink: 0; transition: all 0.2s; }
+  .contact-item:hover .c-arr { color: var(--gold); transform: translate(2px,-2px); }
+
+  footer { border-top: 1px solid rgba(212,168,67,0.1); padding: 26px 60px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+  .f-l { font-size: 9px; letter-spacing: 2px; color: var(--text-dim); }
+  .f-l span { color: var(--gold); }
+  .f-r { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--text-dim); }
+
+  .fade { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade.in { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero, .sec, footer, .divider { padding-left: 24px; padding-right: 24px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .skills-hdr, .skill-row { grid-template-columns: 1fr; }
+    .proj { grid-template-columns: 1fr; }
+    .proj-link { writing-mode: initial; }
+  }
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="smoke"></div>
+
+<nav>
+  <a href="#" class="nav-logo">JAYDEN WILLIAMS <span class="nav-ep">· cybersecurity</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">01 · About</a></li>
+    <li><a href="#projects">02 · Projects</a></li>
+    <li><a href="#skills">03 · Arsenal</a></li>
+    <li><a href="#certs">04 · Creds</a></li>
+    <li><a href="#writing">05 · Logs</a></li>
+    <li><a href="#contact">06 · Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:1;">
+    <div class="session-tag">Session 00 &nbsp;·&nbsp; Tampa, FL &nbsp;·&nbsp; 2026</div>
+    <div class="hero-name">JAYDEN<br><span class="g">WILLIAMS</span></div>
+    <div class="hero-role">Cybersecurity Analyst &amp; Threat Hunter</div>
+    <div class="hero-quote">"They say the bounty hunter who carries their work home will never rest.<br>I carry Splunk dashboards."</div>
+    <div class="hero-badges">
+      <span class="badge g">✓ Security+</span>
+      <span class="badge g">✓ CySA+</span>
+      <span class="badge g">✓ CSAP Stackable</span>
+      <span class="badge o">◌ SC-200 In Progress</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-gold">View Projects</a>
+      <a href="Jayden_Williams_Resume.pdf" download class="btn btn-out">↓ Resume</a>
+      <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="btn btn-out">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-label">◆ Session 01 · About</span></div>
+
+<section class="sec" id="about">
+  <div class="sec-head fade">
+    <div class="sec-num">Session 01</div>
+    <div class="sec-title">ABOUT</div>
+    <div class="sec-sub">Somewhere in Tampa, Florida...</div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade">
+      <p>I'm a 19-year-old cybersecurity student at <strong>Hillsborough Community College</strong> — Dean's List, 3.50 GPA — transferring to <strong>USF's B.S. in Cybersecurity</strong> in Fall 2027.</p>
+      <p>My focus is <strong>blue team operations</strong>: threat detection, log analysis, SIEM engineering, and incident response. I don't just study for exams — I build labs, simulate real attacks, and document the detections publicly.</p>
+      <p>I passed <strong>Security+</strong> in March 2026 and <strong>CySA+</strong> in April 2026. Holding a <strong>CompTIA CSAP stackable cert</strong> (Security+ + CySA+). SC-200 is next. Member of <strong>HCC Cyberhawks</strong> and <strong>NSBE</strong>.</p>
+      <p>When I'm not in a terminal I'm watching Cowboy Bebop, playing Red Dead Redemption 2, or producing in FL Studio.</p>
+    </div>
+    <div class="stat-panel fade">
+      <div class="stat-panel-head">// Status Report</div>
+      <div class="stat-row"><span class="stat-k">Certs Earned</span><span class="stat-v">2</span></div>
+      <div class="stat-row"><span class="stat-k">Lab Projects</span><span class="stat-v">5</span></div>
+      <div class="stat-row"><span class="stat-k">GPA</span><span class="stat-v">3.50</span></div>
+      <div class="stat-row"><span class="stat-k">Attacks Captured</span><span class="stat-v">63</span></div>
+      <div class="stat-row"><span class="stat-k">Medium Views</span><span class="stat-v">76+</span></div>
+      <div class="stat-row"><span class="stat-k">Status</span><span class="stat-v" style="font-size:13px;color:#39d353;">OPEN</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-label">◆ Session 02 · Projects</span></div>
+
+<section class="sec" id="projects">
+  <div class="sec-head fade">
+    <div class="sec-num">Session 02</div>
+    <div class="sec-title">BOUNTIES</div>
+    <div class="sec-sub">Active hunts — each one documented</div>
+  </div>
+  <div class="proj-list fade">
+    <a href="https://medium.com/@jwilliams.cyber/see-you-space-cowboy-bounty-hunting-threats-with-splunk-911ffbed051a" target="_blank" class="proj feat">
+      <div>
+        <div class="proj-ep">Featured Bounty · May 2026 · Published on Medium</div>
+        <div class="proj-name">COWBOY BEBOP THREAT HUNTING LAB</div>
+        <div class="proj-desc">Three-VM SIEM lab simulating four MITRE ATT&CK techniques — Initial Access, Persistence, Credential Access, Lateral Movement. Red Dragon (Kali) attacked Swordfish II (Windows 11). Bebop (Splunk) caught everything.</div>
+        <div class="tags"><span class="tag">Splunk</span><span class="tag">Sysmon</span><span class="tag">Kali Linux</span><span class="tag">Windows 11</span><span class="tag">MITRE ATT&CK</span><span class="tag">VirtualBox</span></div>
+      </div>
+      <div class="proj-link">Read ↗</div>
+    </a>
+    <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj">
+      <div>
+        <div class="proj-ep">Bounty · Feb 2026</div>
+        <div class="proj-name">SYSMON DETECTION LAB</div>
+        <div class="proj-desc">Installed and configured Sysmon on a Windows 10 VM with a custom XML ruleset. Captured 7+ command executions via Event ID 1. Simulated living-off-the-land techniques using encoded PowerShell.</div>
+        <div class="tags"><span class="tag">Sysmon</span><span class="tag">PowerShell</span><span class="tag">Windows</span><span class="tag">MITRE ATT&CK</span></div>
+      </div>
+      <div class="proj-link">GitHub ↗</div>
+    </a>
+    <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj">
+      <div>
+        <div class="proj-ep">Bounty · Mar 2026</div>
+        <div class="proj-name">AZURE VM VULNERABILITY MANAGEMENT</div>
+        <div class="proj-desc">Deployed a Windows VM in Azure, ran Tenable Nessus scans, remediated with PowerShell, and built a GitHub Actions CI/CD pipeline to automate patch execution in a repeatable scan-patch-validate workflow.</div>
+        <div class="tags"><span class="tag">Azure</span><span class="tag">Nessus</span><span class="tag">PowerShell</span><span class="tag">GitHub Actions</span></div>
+      </div>
+      <div class="proj-link">GitHub ↗</div>
+    </a>
+    <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj">
+      <div>
+        <div class="proj-ep">Bounty · Mar 2026</div>
+        <div class="proj-name">WIRESHARK TRAFFIC ANALYSIS AUTOMATION</div>
+        <div class="proj-desc">Automated network traffic analysis using Wireshark and Python/Pandas, identifying top talker IPs, protocol distribution, and 10+ active ports from raw packet captures.</div>
+        <div class="tags"><span class="tag">Wireshark</span><span class="tag">Python</span><span class="tag">Pandas</span></div>
+      </div>
+      <div class="proj-link">GitHub ↗</div>
+    </a>
+    <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj">
+      <div>
+        <div class="proj-ep">Bounty · Apr 2026</div>
+        <div class="proj-name">24-HOUR AWS HONEYPOT LAB</div>
+        <div class="proj-desc">Deployed T-Pot 24.04.1 on AWS EC2 and captured 63 attacks from 5 unique source IPs within 24 hours. Detected NMAP recon and SSH brute force. Mapped TTPs to 5 MITRE ATT&CK techniques using Kibana and Suricata.</div>
+        <div class="tags"><span class="tag">T-Pot</span><span class="tag">AWS EC2</span><span class="tag">Kibana</span><span class="tag">Elasticsearch</span><span class="tag">Suricata</span></div>
+      </div>
+      <div class="proj-link">GitHub ↗</div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-label">◆ Session 03 · Arsenal</span></div>
+
+<section class="sec" id="skills">
+  <div class="sec-head fade">
+    <div class="sec-num">Session 03</div>
+    <div class="sec-title">ARSENAL</div>
+    <div class="sec-sub">Tools of the trade</div>
+  </div>
+  <div class="skills-tbl fade">
+    <div class="skills-hdr"><span>Category</span><span>Tools &amp; Technologies</span></div>
+    <div class="skill-row"><span class="skill-cat">Security Tools</span><div class="skill-items"><span class="chip">Splunk</span><span class="chip">Sysmon</span><span class="chip">Wireshark</span><span class="chip">Tenable Nessus</span></div></div>
+    <div class="skill-row"><span class="skill-cat">Languages</span><div class="skill-items"><span class="chip">Python</span><span class="chip">Java</span><span class="chip">C#</span><span class="chip">SQL</span><span class="chip">PowerShell</span><span class="chip">Bash</span></div></div>
+    <div class="skill-row"><span class="skill-cat">Cloud &amp; DevOps</span><div class="skill-items"><span class="chip">Azure</span><span class="chip">AWS EC2</span><span class="chip">GitHub Actions</span><span class="chip">Git</span><span class="chip">VMware</span></div></div>
+    <div class="skill-row"><span class="skill-cat">Frameworks</span><div class="skill-items"><span class="chip">MITRE ATT&CK</span><span class="chip">NIST CSF</span><span class="chip">CVSS</span><span class="chip">OWASP Top 10</span><span class="chip">PCI-DSS</span><span class="chip">SOX</span></div></div>
+    <div class="skill-row"><span class="skill-cat">Operations</span><div class="skill-items"><span class="chip">SIEM</span><span class="chip">Incident Response</span><span class="chip">Threat Detection</span><span class="chip">Log Analysis</span><span class="chip">Threat Hunting</span><span class="chip">OSINT</span></div></div>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-label">◆ Session 04 · Credentials</span></div>
+
+<section class="sec" id="certs">
+  <div class="sec-head fade">
+    <div class="sec-num">Session 04</div>
+    <div class="sec-title">CREDENTIALS</div>
+    <div class="sec-sub">Click any earned cert to view the certificate PDF</div>
+  </div>
+  <div class="certs-grid fade">
+    <a href="CompTIA_CySA_Certificate.pdf" target="_blank" class="cert-card">
+      <div class="cert-ep">CompTIA · Apr 2026</div>
+      <div class="cert-name">CYSA+</div>
+      <div class="cert-detail">CS0-003 · Valid through Apr 2029<br>ID: COMP001023011776</div>
+      <span class="cert-st earned">✓ Earned</span>
+      <span class="cert-dl">View PDF ↗</span>
+    </a>
+    <a href="CompTIA_CSAP_Certificate.pdf" target="_blank" class="cert-card">
+      <div class="cert-ep">CompTIA · Apr 2026</div>
+      <div class="cert-name">SECURITY ANALYTICS PRO</div>
+      <div class="cert-detail">CSAP Stackable · Security+ + CySA+<br>ID: COMP001023011776</div>
+      <span class="cert-st earned">✓ Earned</span>
+      <span class="cert-dl">View PDF ↗</span>
+    </a>
+    <a href="CompTIA_SecurityPlus_Certificate.pdf" target="_blank" class="cert-card">
+      <div class="cert-ep">CompTIA · Mar 2026</div>
+      <div class="cert-name">SECURITY+</div>
+      <div class="cert-detail">SY0-701 · Valid through Mar 2029<br>ID: COMP001023011776</div>
+      <span class="cert-st earned">✓ Earned</span>
+      <span class="cert-dl">View PDF ↗</span>
+    </a>
+    <div class="cert-card" style="opacity:0.5;cursor:default;">
+      <div class="cert-ep">Microsoft · In Progress</div>
+      <div class="cert-name">SC-200</div>
+      <div class="cert-detail">Security Operations Analyst</div>
+      <span class="cert-st prog">◌ In Progress</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-label">◆ Session 05 · Writing</span></div>
+
+<section class="sec" id="writing">
+  <div class="sec-head fade">
+    <div class="sec-num">Session 05</div>
+    <div class="sec-title">LOGS</div>
+    <div class="sec-sub">Published writeups from the field</div>
+  </div>
+  <a href="https://medium.com/@jwilliams.cyber/see-you-space-cowboy-bounty-hunting-threats-with-splunk-911ffbed051a" target="_blank" class="writing-feat fade">
+    <div class="writing-ep">Medium · May 2026 · 76+ Views</div>
+    <div class="writing-title">SEE YOU SPACE COWBOY:<br>BOUNTY HUNTING THREATS WITH SPLUNK</div>
+    <div class="writing-desc">Four MITRE ATT&CK techniques. Four detections. Full walkthrough with real screenshots and SPL queries — Initial Access via PowerShell download cradle, Persistence via registry run key, Credential Access via LSASS dump attempt, Lateral Movement via rogue service creation.</div>
+    <div class="writing-cta">Read on Medium ↗</div>
+  </a>
+</section>
+
+<div class="divider"><span class="divider-label">◆ Session 06 · Dossier</span></div>
+
+<section class="sec" id="resume">
+  <div class="sec-head fade">
+    <div class="sec-num">Session 06</div>
+    <div class="sec-title">DOSSIER</div>
+    <div class="sec-sub">Full resume — available for download</div>
+  </div>
+  <div class="resume-panel fade">
+    <div class="resume-hdr">
+      <span class="resume-hdr-t">// Jayden_Williams_Resume.pdf</span>
+      <span style="font-size:9px;letter-spacing:2px;color:var(--text-dim);">Updated May 2026</span>
+    </div>
+    <div class="resume-body">
+      <div class="resume-info">
+        <strong>Jayden Williams</strong><br>
+        HCC → USF · B.S. Cybersecurity · Expected 2028<br>
+        GPA: 3.50 · Dean's List · Tampa, FL · U.S. Citizen<br>
+        Security+ · CySA+ · CSAP · SC-200 In Progress
+      </div>
+      <a href="Jayden_Williams_Resume.pdf" download class="btn btn-gold">↓ Download</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span class="divider-label">◆ Session 07 · Contact</span></div>
+
+<section class="sec" id="contact">
+  <div class="contact-grid">
+    <div class="fade">
+      <div class="contact-h">LET'S<br><span>CONNECT</span></div>
+      <div class="contact-p">Open to SOC analyst internships, GRC roles, and cybersecurity opportunities in Tampa, Orlando, Dallas, and Miami. U.S. citizen. Available for on-site, hybrid, or remote.</div>
+      <a href="mailto:jwilliams.cyber@gmail.com" class="btn btn-gold">Send Email ↗</a>
+    </div>
+    <div class="contact-list fade">
+      <a href="mailto:jwilliams.cyber@gmail.com" class="contact-item">
+        <div><div class="c-label">Email</div><div class="c-val">jwilliams.cyber@gmail.com</div></div>
+        <span class="c-arr">↗</span>
+      </a>
+      <a href="https://linkedin.com/in/jayden-williams-9964a83a9" target="_blank" class="contact-item">
+        <div><div class="c-label">LinkedIn</div><div class="c-val">jayden-williams-9964a83a9</div></div>
+        <span class="c-arr">↗</span>
+      </a>
+      <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="contact-item">
+        <div><div class="c-label">GitHub</div><div class="c-val">jaydenwilliams-cyber</div></div>
+        <span class="c-arr">↗</span>
+      </a>
+      <a href="https://medium.com/@jwilliams.cyber" target="_blank" class="contact-item">
+        <div><div class="c-label">Medium</div><div class="c-val">@jwilliams.cyber</div></div>
+        <span class="c-arr">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-l">© 2026 <span>Jayden Williams</span> · Tampa, FL · GitHub Pages</div>
+  <div class="f-r">See you space cowboy...</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); }), { threshold: 0.08 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
