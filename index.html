@@ -124,12 +124,12 @@
   .chip { font-size: 9px; padding: 3px 7px; background: var(--bg); border: 1px solid var(--border); color: var(--text-dim); }
 
   .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; background: var(--border); }
-  .cert-card { background: var(--panel); padding: 26px 28px; text-decoration: none; color: inherit; display: block; transition: background 0.2s; position: relative; }
+  .cert-card { background: var(--panel); padding: 26px 28px; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: background 0.2s; position: relative; }
   .cert-card:hover { background: #10101e; }
   .cert-ep { font-size: 9px; letter-spacing: 3px; color: var(--orange); text-transform: uppercase; margin-bottom: 10px; }
   .cert-name { font-family: var(--display); font-size: 20px; letter-spacing: 2px; color: #fff; margin-bottom: 5px; line-height: 1.1; }
   .cert-detail { font-size: 9px; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 14px; line-height: 1.6; }
-  .cert-st { font-size: 9px; letter-spacing: 2px; padding: 3px 8px; text-transform: uppercase; display: inline-block; }
+  .cert-st { font-size: 9px; letter-spacing: 2px; padding: 3px 8px; text-transform: uppercase; display: inline-block; margin-top: auto; align-self: flex-start; }
   .cert-st.earned { background: rgba(57,211,83,0.08); border: 1px solid rgba(57,211,83,0.4); color: #39d353; }
   .cert-st.prog { background: rgba(200,90,42,0.08); border: 1px solid rgba(200,90,42,0.4); color: var(--orange); }
   .cert-dl { position: absolute; bottom: 24px; right: 24px; font-size: 9px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; opacity: 0; transition: opacity 0.2s; }
