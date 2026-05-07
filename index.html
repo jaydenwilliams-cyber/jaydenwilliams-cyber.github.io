@@ -184,6 +184,13 @@
   .cursor { color: var(--gold); animation: blink 0.7s step-end infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
+  /* Animated star field */
+  .star-dot { position: fixed; border-radius: 50%; background: #fff; pointer-events: none; z-index: 0; }
+  @keyframes twinkle { 0% { opacity: var(--op1); transform: scale(1); } 100% { opacity: var(--op2); transform: scale(1.6); } }
+
+  /* CRT scanlines on hero only */
+  .hero::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 3px); pointer-events: none; z-index: 2; }
+
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
@@ -200,6 +207,7 @@
 <body>
 <div class="stars"></div>
 <div class="smoke"></div>
+<div id="star-field"></div>
 
 <nav>
   <a href="#" class="nav-logo">JAYDEN WILLIAMS <span class="nav-ep">· cybersecurity</span></a>
@@ -257,7 +265,6 @@
       <p>I'm a 19-year-old cybersecurity student at <strong>Hillsborough Community College</strong> with a 3.50 GPA and Dean's List recognition. I plan to transfer into <strong>USF's B.S. in Cybersecurity</strong> program in Fall 2027.</p>
       <p>My focus is <strong>blue team operations</strong>, threat detection, log analysis, SIEM engineering, and incident response. I build labs, simulate attacks, and document detections publicly to improve my skills outside the classroom.</p>
       <p>I earned <strong>Security+</strong> in March 2026 and <strong>CySA+</strong> in April 2026, earning the <strong>CompTIA CSAP stackable certification</strong>. SC-200 is next. I'm also a member of <strong>HCC Cyberhawks</strong> and <strong>NSBE</strong>.</p>
-      <p>Most of my lab work is Windows-focused right now. That's where most of the real-world telemetry comes from.</p>
     </div>
     <div class="stat-panel fade">
       <div class="stat-panel-head">// Status Report</div>
@@ -266,7 +273,7 @@
       <div class="stat-row"><span class="stat-k">GPA</span><span class="stat-v">3.50</span></div>
       <div class="stat-row"><span class="stat-k">Attacks Captured</span><span class="stat-v">63</span></div>
       <div class="stat-row"><span class="stat-k">Medium Views</span><span class="stat-v">76+</span></div>
-      <div class="stat-row"><span class="stat-k">Status</span><span class="stat-v" style="font-size:13px;color:#39d353;">OPEN</span></div>
+      <div class="stat-row"><span class="stat-k">Status</span><span class="stat-v" style="font-size:11px;color:#39d353;">OPEN TO WORK</span></div>
     </div>
   </div>
 </section>
@@ -277,14 +284,14 @@
   <div class="sec-head fade">
     <div class="sec-num">Session 02</div>
     <div class="sec-title">BOUNTIES</div>
-    <div class="sec-sub">Active hunts — each one documented</div>
+    <div class="sec-sub">Active hunts, each one documented</div>
   </div>
   <div class="proj-list fade">
     <a href="https://medium.com/@jwilliams.cyber/see-you-space-cowboy-bounty-hunting-threats-with-splunk-911ffbed051a" target="_blank" class="proj feat">
       <div>
         <div class="proj-ep">Featured Bounty · May 2026 · Published on Medium</div>
         <div class="proj-name">COWBOY BEBOP THREAT HUNTING LAB</div>
-        <div class="proj-desc">Three-VM SIEM lab simulating four MITRE ATT&CK techniques — Initial Access, Persistence, Credential Access, Lateral Movement. Red Dragon (Kali) attacked Swordfish II (Windows 11). Bebop (Splunk) caught everything.</div>
+        <div class="proj-desc">Three-VM SIEM lab simulating four MITRE ATT&CK techniques: Initial Access, Persistence, Credential Access, Lateral Movement. Red Dragon (Kali) attacked Swordfish II (Windows 11). Bebop (Splunk) caught everything.</div>
         <div class="tags"><span class="tag">Splunk</span><span class="tag">Sysmon</span><span class="tag">Kali Linux</span><span class="tag">Windows 11</span><span class="tag">MITRE ATT&CK</span><span class="tag">VirtualBox</span></div>
       </div>
       <div class="proj-link">Read ↗</div>
@@ -339,13 +346,13 @@
     <div class="proj feat" style="display:block;">
       <div class="proj-ep">Lab · In Progress · 2026</div>
       <div class="proj-name">COWBOY BEBOP THREAT HUNTING LAB — EP. 5</div>
-      <div class="proj-desc">Insider threat detection with Splunk. Simulating a malicious insider exfiltrating data — building detections around anomalous access patterns, data staging, and after-hours activity using SPL and Sysmon telemetry.</div>
+      <div class="proj-desc">Insider threat detection with Splunk. Simulating a malicious insider exfiltrating data, building detections around anomalous access patterns, data staging, and after-hours activity using SPL and Sysmon telemetry.</div>
       <div class="tags"><span class="tag">Splunk</span><span class="tag">Sysmon</span><span class="tag">Insider Threat</span><span class="tag">SPL</span></div>
     </div>
     <div class="proj" style="display:block;">
       <div class="proj-ep">Certification · In Progress · 2026</div>
       <div class="proj-name">SC-200 MICROSOFT SECURITY OPERATIONS ANALYST</div>
-      <div class="proj-desc">Microsoft Security Operations Analyst certification — covering Microsoft Sentinel, Defender XDR, threat intelligence, and incident response workflows in Azure-native environments.</div>
+      <div class="proj-desc">Microsoft Security Operations Analyst certification covering Microsoft Sentinel, Defender XDR, threat intelligence, and incident response workflows in Azure-native environments.</div>
       <div class="tags"><span class="tag">Microsoft Sentinel</span><span class="tag">Defender XDR</span><span class="tag">Azure</span><span class="tag">Threat Intelligence</span></div>
     </div>
   </div>
@@ -404,24 +411,21 @@
       <div class="cert-name">SECURITY+</div>
       <div class="cert-detail">SY0-701 · Valid through Mar 2029<br>ID: COMP001023011776</div>
       <span class="cert-st earned">✓ Earned</span>
-      <span style="display:block;margin-top:10px;font-size:9px;color:#00d4e8;letter-spacing:1px;">View Certificate →</span>
-      <span class="cert-dl">View PDF ↗</span>
+<span class="cert-dl">View PDF ↗</span>
     </a>
     <a href="CompTIA_CySA_Certificate.pdf" target="_blank" class="cert-card">
       <div class="cert-ep">CompTIA · Apr 2026</div>
       <div class="cert-name">CYSA+</div>
       <div class="cert-detail">CS0-003 · Valid through Apr 2029<br>ID: COMP001023011776</div>
       <span class="cert-st earned">✓ Earned</span>
-      <span style="display:block;margin-top:10px;font-size:9px;color:#00d4e8;letter-spacing:1px;">View Certificate →</span>
-      <span class="cert-dl">View PDF ↗</span>
+<span class="cert-dl">View PDF ↗</span>
     </a>
     <a href="CompTIA_CSAP_Certificate.pdf" target="_blank" class="cert-card">
       <div class="cert-ep">CompTIA · Apr 2026</div>
       <div class="cert-name">SECURITY ANALYTICS PROFESSIONAL</div>
       <div class="cert-detail">CSAP Stackable · Security+ + CySA+<br>ID: COMP001023011776</div>
       <span class="cert-st earned">✓ Earned</span>
-      <span style="display:block;margin-top:10px;font-size:9px;color:#00d4e8;letter-spacing:1px;">View Certificate →</span>
-      <span class="cert-dl">View PDF ↗</span>
+<span class="cert-dl">View PDF ↗</span>
     </a>
     <div class="cert-card" style="opacity:0.5;cursor:default;">
       <div class="cert-ep">Microsoft · In Progress</div>
@@ -443,7 +447,7 @@
   <a href="https://medium.com/@jwilliams.cyber/see-you-space-cowboy-bounty-hunting-threats-with-splunk-911ffbed051a" target="_blank" class="writing-feat fade">
     <div class="writing-ep">Medium · May 2026 · 76+ Views</div>
     <div class="writing-title">SEE YOU SPACE COWBOY:<br>BOUNTY HUNTING THREATS WITH SPLUNK</div>
-    <div class="writing-desc">Four MITRE ATT&CK techniques. Four detections. Full walkthrough with real screenshots and SPL queries — Initial Access via PowerShell download cradle, Persistence via registry run key, Credential Access via LSASS dump attempt, Lateral Movement via rogue service creation.</div>
+    <div class="writing-desc">Four MITRE ATT&CK techniques. Four detections. Full walkthrough with real screenshots and SPL queries: Initial Access via PowerShell download cradle, Persistence via registry run key, Credential Access via LSASS dump attempt, Lateral Movement via rogue service creation.</div>
     <div class="writing-cta">Read on Medium ↗</div>
   </a>
 </section>
@@ -454,7 +458,7 @@
   <div class="sec-head fade">
     <div class="sec-num">Session 06</div>
     <div class="sec-title">DOSSIER</div>
-    <div class="sec-sub">Full resume — available for download</div>
+    <div class="sec-sub">Full resume, available for download</div>
   </div>
   <div class="resume-panel fade">
     <div class="resume-hdr">
@@ -479,7 +483,7 @@
   <div class="contact-grid">
     <div class="fade">
       <div class="contact-h">LET'S<br><span>CONNECT</span></div>
-      <div class="contact-p">Open to SOC analyst internships and cybersecurity opportunities in Florida. Open to relocation.. U.S. citizen. Available for on-site, hybrid, or remote.</div>
+      <div class="contact-p">Open to SOC analyst internships and cybersecurity opportunities in Florida. Open to relocation. U.S. citizen. Available for on-site, hybrid, or remote.</div>
       <img src="https://ghchart.rshah.org/d4a843/jaydenwilliams-cyber" alt="GitHub activity" style="width:100%;opacity:0.7;margin-top:20px;border:1px solid #1e3040;">
       <a href="mailto:jwilliams.cyber@gmail.com" class="btn btn-gold">Send Email ↗</a>
     </div>
@@ -520,6 +524,21 @@
 <script>
   const obs = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); }), { threshold: 0.08 });
   document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+  (function() {
+    const field = document.getElementById('star-field');
+    for (let i = 0; i < 110; i++) {
+      const s = document.createElement('div');
+      s.className = 'star-dot';
+      const sz = (Math.random() * 1.6 + 0.4).toFixed(1);
+      const op1 = (Math.random() * 0.12 + 0.04).toFixed(2);
+      const op2 = (Math.random() * 0.55 + 0.25).toFixed(2);
+      const dur = (Math.random() * 4 + 2).toFixed(1);
+      const delay = (Math.random() * 6).toFixed(1);
+      s.style.cssText = `left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;width:${sz}px;height:${sz}px;--op1:${op1};--op2:${op2};animation:twinkle ${dur}s ease-in-out ${delay}s infinite alternate;`;
+      field.appendChild(s);
+    }
+  })();
 
   (function() {
     const roles = ['Threat Hunter', 'SOC Analyst', 'Blue Team Defender', 'Security Analyst'];
