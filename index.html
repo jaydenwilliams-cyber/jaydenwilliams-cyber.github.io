@@ -170,6 +170,20 @@
   .fade { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .fade.in { opacity: 1; transform: none; }
 
+  /* Marquee bar */
+  .marquee-bar { background: #071a1a; border-bottom: 1px solid rgba(212,168,67,0.2); overflow: hidden; white-space: nowrap; position: fixed; top: 64px; width: 100%; z-index: 99; height: 28px; display: flex; align-items: center; }
+  .marquee-track { display: inline-flex; animation: marquee 35s linear infinite; font-size: 9px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
+  .marquee-track span { padding-right: 60px; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* Hero layout with avatar */
+  .hero-content { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 48px; }
+  .hero-avatar { width: 280px; height: 280px; border-radius: 50%; border: 2px solid var(--gold); box-shadow: 0 0 28px rgba(0,210,230,0.35), 0 0 8px rgba(212,168,67,0.4); object-fit: cover; flex-shrink: 0; }
+
+  /* Typing cursor */
+  .cursor { color: var(--gold); animation: blink 0.7s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
@@ -178,6 +192,8 @@
     .skills-hdr, .skill-row { grid-template-columns: 1fr; }
     .proj { grid-template-columns: 1fr; }
     .proj-link { writing-mode: initial; }
+    .hero-content { flex-direction: column-reverse; align-items: flex-start; }
+    .hero-avatar { width: 180px; height: 180px; align-self: center; }
   }
 </style>
 </head>
@@ -197,24 +213,34 @@
   </ul>
 </nav>
 
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Security+ · CySA+ · CSAP · Splunk · Sysmon · MITRE ATT&amp;CK · Wireshark · Python · Azure · AWS · Threat Detection · Log Analysis · Incident Response</span>
+    <span>Security+ · CySA+ · CSAP · Splunk · Sysmon · MITRE ATT&amp;CK · Wireshark · Python · Azure · AWS · Threat Detection · Log Analysis · Incident Response</span>
+  </div>
+</div>
+
 <section class="hero">
   <div class="hero-glow"></div>
-  <div style="position:relative;z-index:1;">
-    <div class="session-tag">Session 00 &nbsp;·&nbsp; Tampa, FL &nbsp;·&nbsp; 2026</div>
-    <div class="hero-name">JAYDEN<br><span class="g">WILLIAMS</span></div>
-    <div class="hero-role">Cybersecurity Analyst &amp; Threat Hunter</div>
-    <div class="hero-quote">"They say the bounty hunter who carries their work home will never rest.<br>I carry Splunk dashboards."</div>
-    <div class="hero-badges">
-      <span class="badge g">✓ Security+</span>
-      <span class="badge g">✓ CySA+</span>
-      <span class="badge g">✓ CSAP Stackable</span>
-      <span class="badge o">◌ SC-200 In Progress</span>
+  <div class="hero-content" style="position:relative;z-index:1;">
+    <div>
+      <div class="session-tag">Session 00 &nbsp;·&nbsp; Tampa, FL &nbsp;·&nbsp; 2026</div>
+      <div class="hero-name">JAYDEN<br><span class="g">WILLIAMS</span></div>
+      <div class="hero-role"><span id="typing-text"></span><span class="cursor">|</span></div>
+      <div class="hero-quote">"They say the bounty hunter who carries their work home will never rest.<br>I carry Splunk dashboards."</div>
+      <div class="hero-badges">
+        <span class="badge g">✓ Security+</span>
+        <span class="badge g">✓ CySA+</span>
+        <span class="badge g">✓ CSAP Stackable</span>
+        <span class="badge o">◌ SC-200 In Progress</span>
+      </div>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-gold">View Projects</a>
+        <a href="Jayden_Williams_Resume.pdf" download class="btn btn-out">↓ Resume</a>
+        <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="btn btn-out">GitHub ↗</a>
+      </div>
     </div>
-    <div class="hero-btns">
-      <a href="#projects" class="btn btn-gold">View Projects</a>
-      <a href="Jayden_Williams_Resume.pdf" download class="btn btn-out">↓ Resume</a>
-      <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="btn btn-out">GitHub ↗</a>
-    </div>
+    <img src="cowboy-bebop.gif" alt="Cowboy Bebop" class="hero-avatar">
   </div>
 </section>
 
@@ -406,7 +432,8 @@
   <div class="contact-grid">
     <div class="fade">
       <div class="contact-h">LET'S<br><span>CONNECT</span></div>
-      <div class="contact-p">Open to SOC analyst internships, GRC roles, and cybersecurity opportunities in Tampa, Orlando, Dallas, and Miami. U.S. citizen. Available for on-site, hybrid, or remote.</div>
+      <div class="contact-p">Open to SOC analyst internships and cybersecurity opportunities in Tampa, Orlando, Dallas, and Miami. U.S. citizen. Available for on-site, hybrid, or remote.</div>
+      <img src="https://ghchart.rshah.org/d4a843/jaydenwilliams-cyber" alt="GitHub activity" style="width:100%;opacity:0.7;margin-top:20px;border:1px solid #1e3040;">
       <a href="mailto:jwilliams.cyber@gmail.com" class="btn btn-gold">Send Email ↗</a>
     </div>
     <div class="contact-list fade">
@@ -438,6 +465,25 @@
 <script>
   const obs = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); }), { threshold: 0.08 });
   document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+  (function() {
+    const roles = ['Threat Hunter', 'SOC Analyst', 'Blue Team Defender', 'Security Analyst'];
+    let ri = 0, ci = 0, del = false;
+    const el = document.getElementById('typing-text');
+    function tick() {
+      const cur = roles[ri];
+      if (!del) {
+        el.textContent = cur.slice(0, ++ci);
+        if (ci === cur.length) { del = true; setTimeout(tick, 1800); return; }
+        setTimeout(tick, 100);
+      } else {
+        el.textContent = cur.slice(0, --ci);
+        if (ci === 0) { del = false; ri = (ri + 1) % roles.length; }
+        setTimeout(tick, 60);
+      }
+    }
+    tick();
+  })();
 </script>
 </body>
 </html>
