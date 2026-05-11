@@ -233,7 +233,6 @@
         <span class="badge g">✓ Security+</span>
         <span class="badge g">✓ CySA+</span>
         <span class="badge g">✓ CSAP Stackable</span>
-        <span class="badge o">◌ Associate of ISC2 In Progress</span>
       </div>
       <div class="hero-btns">
         <a href="#projects" class="btn btn-gold">View Projects</a>
@@ -264,16 +263,16 @@
     <div class="about-text fade">
       <p>I'm a 19-year-old cybersecurity student at <strong>Hillsborough Community College</strong> with a 3.50 GPA and Dean's List recognition. I plan to transfer into <strong>USF's B.S. in Cybersecurity</strong> program in Fall 2027.</p>
       <p>My focus is <strong>blue team operations</strong>, threat detection, log analysis, SIEM engineering, and incident response. I build labs, simulate attacks, and document detections publicly to improve my skills outside the classroom.</p>
-      <p>I earned <strong>Security+</strong> in March 2026 and <strong>CySA+</strong> in April 2026, earning the <strong>CompTIA CSAP stackable certification</strong>. I'm currently pursuing the <strong>Associate of ISC2</strong> credential. I'm also a member of <strong>HCC Cyberhawks</strong> and <strong>National Society of Black Engineers</strong>.</p>
+      <p>I earned <strong>Security+</strong> in March 2026 and <strong>CySA+</strong> in April 2026, earning the <strong>CompTIA CSAP stackable certification</strong>. I'm also a member of <strong>HCC Cyberhawks</strong> and <strong>National Society of Black Engineers</strong>.</p>
     </div>
     <div class="stat-panel fade">
       <div class="stat-panel-head">// Status Report</div>
-      <div class="stat-row"><span class="stat-k">Certs Earned</span><span class="stat-v">3</span></div>
-      <div class="stat-row"><span class="stat-k">Lab Projects</span><span class="stat-v">5</span></div>
-      <div class="stat-row"><span class="stat-k">GPA</span><span class="stat-v">3.50</span></div>
-      <div class="stat-row"><span class="stat-k">Attacks Captured</span><span class="stat-v">63</span></div>
-      <div class="stat-row"><span class="stat-k">Medium Views</span><span class="stat-v">88+</span></div>
-      <div class="stat-row"><span class="stat-k">Medium Reads</span><span class="stat-v">37</span></div>
+      <div class="stat-row"><span class="stat-k">Certs Earned</span><span class="stat-v" data-target="3">3</span></div>
+      <div class="stat-row"><span class="stat-k">Lab Projects</span><span class="stat-v" data-target="5">5</span></div>
+      <div class="stat-row"><span class="stat-k">GPA</span><span class="stat-v" data-target="3.50" data-decimals="2">3.50</span></div>
+      <div class="stat-row"><span class="stat-k">Attacks Captured</span><span class="stat-v" data-target="63">63</span></div>
+      <div class="stat-row"><span class="stat-k">Medium Views</span><span class="stat-v" data-target="88" data-suffix="+">88+</span></div>
+      <div class="stat-row"><span class="stat-k">Medium Reads</span><span class="stat-v" data-target="37">37</span></div>
       <div class="stat-row"><span class="stat-k">Status</span><span class="stat-v" style="font-size:11px;color:#39d353;">OPEN TO WORK</span></div>
     </div>
   </div>
@@ -353,12 +352,6 @@
       </div>
       <div class="proj-link">GitHub ↗</div>
     </a>
-    <div class="proj" style="display:block;">
-      <div class="proj-ep">Certification · In Progress · 2026</div>
-      <div class="proj-name">ASSOCIATE OF ISC2</div>
-      <div class="proj-desc">Pursuing the ISC2 Associate credential, covering security and risk management, asset security, security architecture, network security, identity management, security assessment, security operations, and software development security.</div>
-      <div class="tags"><span class="tag">ISC2</span><span class="tag">Risk Management</span><span class="tag">Security Architecture</span><span class="tag">GRC</span></div>
-    </div>
   </div>
 </section>
 
@@ -564,6 +557,36 @@
       }
     }
     tick();
+  })();
+
+  (function() {
+    var counters = document.querySelectorAll('.stat-v[data-target]');
+    if (!counters.length) return;
+    counters.forEach(function(el) {
+      var dec = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
+      el.textContent = (0).toFixed(dec) + (el.dataset.suffix || '');
+    });
+    var done = false;
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+    function run() {
+      if (done) return;
+      done = true;
+      var start = performance.now();
+      (function tick(now) {
+        var p = Math.min((now - start) / 1500, 1);
+        var e = easeOut(p);
+        counters.forEach(function(el) {
+          var dec = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
+          el.textContent = (parseFloat(el.dataset.target) * e).toFixed(dec) + (el.dataset.suffix || '');
+        });
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    }
+    var panel = document.querySelector('.stat-panel');
+    if (!panel) { run(); return; }
+    new IntersectionObserver(function(entries, obs) {
+      if (entries[0].isIntersecting) { run(); obs.disconnect(); }
+    }, { threshold: 0.3 }).observe(panel);
   })();
 </script>
 </body>
