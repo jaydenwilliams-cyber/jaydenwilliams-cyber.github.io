@@ -50,18 +50,18 @@
 
   nav {
     position: fixed; top: 0; width: 100%; z-index: 100;
-    padding: 0 60px; height: 64px;
+    padding: 0 60px; height: 72px;
     display: flex; justify-content: space-between; align-items: center;
     border-bottom: 1px solid rgba(212,168,67,0.1);
     background: rgba(8,8,16,0.92); backdrop-filter: blur(12px);
   }
-  .nav-logo { font-family: var(--display); font-size: 18px; letter-spacing: 6px; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 12px; }
-  .nav-ep { font-family: var(--serif); font-style: italic; font-size: 11px; color: var(--text-dim); }
+  .nav-logo { font-family: var(--display); font-size: 18px; letter-spacing: 6px; color: var(--gold); text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; }
+  .nav-ep { display: block; font-size: 9px; letter-spacing: 4px; color: var(--text-dim); text-transform: uppercase; }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a { font-size: 9px; letter-spacing: 3px; color: var(--text-dim); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
   .nav-links a:hover { color: var(--gold); }
 
-  .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 60px 80px; position: relative; overflow: hidden; }
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 80px 60px 80px; position: relative; overflow: hidden; }
   .hero-glow { position: absolute; top: 30%; right: -10%; width: 50%; height: 60%; background: radial-gradient(ellipse, rgba(212,168,67,0.05) 0%, transparent 70%); pointer-events: none; }
   .session-tag { font-size: 9px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; opacity: 0.8; }
   .session-tag::before, .session-tag::after { content: '—'; color: var(--text-dim); }
@@ -171,7 +171,7 @@
   .fade.in { opacity: 1; transform: none; }
 
   /* Marquee bar */
-  .marquee-bar { background: #071a1a; border-bottom: 1px solid rgba(212,168,67,0.2); overflow: hidden; white-space: nowrap; position: fixed; top: 64px; width: 100%; z-index: 99; height: 28px; display: flex; align-items: center; }
+  .marquee-bar { background: #071a1a; border-top: 1px solid rgba(212,168,67,0.2); overflow: hidden; white-space: nowrap; position: relative; width: 100%; z-index: 1; height: 28px; display: flex; align-items: center; }
   .marquee-track { display: inline-flex; animation: marquee 35s linear infinite; font-size: 9px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; }
   .marquee-track span { padding-right: 60px; }
   @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -210,7 +210,7 @@
 <div id="star-field"></div>
 
 <nav>
-  <a href="#" class="nav-logo">JAYDEN WILLIAMS <span class="nav-ep">· cybersecurity</span></a>
+  <a href="#" class="nav-logo">JAYDEN WILLIAMS<span class="nav-ep">cybersecurity</span></a>
   <ul class="nav-links">
     <li><a href="#about">01 · About</a></li>
     <li><a href="#projects">02 · Projects</a></li>
@@ -220,13 +220,6 @@
     <li><a href="#contact">06 · Contact</a></li>
   </ul>
 </nav>
-
-<div class="marquee-bar">
-  <div class="marquee-track">
-    <span>Security+ · CySA+ · CSAP · Splunk · Sysmon · MITRE ATT&amp;CK · Wireshark · Python · Azure · AWS · Threat Detection · Log Analysis · Incident Response</span>
-    <span>Security+ · CySA+ · CSAP · Splunk · Sysmon · MITRE ATT&amp;CK · Wireshark · Python · Azure · AWS · Threat Detection · Log Analysis · Incident Response</span>
-  </div>
-</div>
 
 <section class="hero">
   <div class="hero-glow"></div>
@@ -251,6 +244,13 @@
     <img src="cowboy-bebop.gif" alt="Cowboy Bebop" class="hero-avatar">
   </div>
 </section>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Security+ · CySA+ · CSAP · Splunk · Sysmon · MITRE ATT&amp;CK · Wireshark · Python · Azure · AWS · Threat Detection · Log Analysis · Incident Response</span>
+    <span>Security+ · CySA+ · CSAP · Splunk · Sysmon · MITRE ATT&amp;CK · Wireshark · Python · Azure · AWS · Threat Detection · Log Analysis · Incident Response</span>
+  </div>
+</div>
 
 <div class="divider"><span class="divider-label">◆ Session 01 · About</span></div>
 
@@ -288,25 +288,25 @@
     <div class="sec-sub">Active hunts, each one documented</div>
   </div>
   <div class="proj-list fade">
-    <a href="https://medium.com/@jwilliams.cyber/see-you-space-cowboy-bounty-hunting-threats-with-splunk-911ffbed051a" target="_blank" class="proj feat">
+    <a href="https://github.com/jaydenwilliams-cyber/cowboy-bebop-threat-hunting-lab" target="_blank" class="proj feat">
       <div>
         <div class="proj-ep">Featured Bounty · May 2026 · Published on Medium</div>
         <div class="proj-name">COWBOY BEBOP THREAT HUNTING LAB</div>
         <div class="proj-desc">Three-VM SIEM lab simulating four MITRE ATT&CK techniques: Initial Access, Persistence, Credential Access, Lateral Movement. Red Dragon (Kali) attacked Swordfish II (Windows 11). Bebop (Splunk) caught everything.</div>
         <div class="tags"><span class="tag">Splunk</span><span class="tag">Sysmon</span><span class="tag">Kali Linux</span><span class="tag">Windows 11</span><span class="tag">MITRE ATT&CK</span><span class="tag">VirtualBox</span></div>
       </div>
-      <div class="proj-link">Read ↗</div>
+      <div class="proj-link">GitHub ↗</div>
     </a>
-    <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj">
+    <a href="https://github.com/jaydenwilliams-cyber/honeypot-lab" target="_blank" class="proj">
       <div>
-        <div class="proj-ep">Bounty · Feb 2026</div>
-        <div class="proj-name">SYSMON DETECTION LAB</div>
-        <div class="proj-desc">Installed and configured Sysmon on a Windows 10 VM with a custom XML ruleset. Captured 7+ command executions via Event ID 1. Simulated living-off-the-land techniques using encoded PowerShell.</div>
-        <div class="tags"><span class="tag">Sysmon</span><span class="tag">PowerShell</span><span class="tag">Windows</span><span class="tag">MITRE ATT&CK</span></div>
+        <div class="proj-ep">Bounty · Apr 2026</div>
+        <div class="proj-name">24-HOUR AWS HONEYPOT LAB</div>
+        <div class="proj-desc">Deployed T-Pot 24.04.1 on AWS EC2 and captured 63 attacks from 5 unique source IPs within 24 hours. Detected NMAP recon and SSH brute force. Mapped TTPs to 5 MITRE ATT&CK techniques using Kibana and Suricata.</div>
+        <div class="tags"><span class="tag">T-Pot</span><span class="tag">AWS EC2</span><span class="tag">Kibana</span><span class="tag">Elasticsearch</span><span class="tag">Suricata</span></div>
       </div>
       <div class="proj-link">GitHub ↗</div>
     </a>
-    <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj">
+    <a href="https://github.com/jaydenwilliams-cyber/azure-vm-vulnerability-management" target="_blank" class="proj">
       <div>
         <div class="proj-ep">Bounty · Mar 2026</div>
         <div class="proj-name">AZURE VM VULNERABILITY MANAGEMENT</div>
@@ -315,7 +315,7 @@
       </div>
       <div class="proj-link">GitHub ↗</div>
     </a>
-    <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj">
+    <a href="https://github.com/jaydenwilliams-cyber/wireshark-traffic-analysis" target="_blank" class="proj">
       <div>
         <div class="proj-ep">Bounty · Mar 2026</div>
         <div class="proj-name">WIRESHARK TRAFFIC ANALYSIS AUTOMATION</div>
@@ -324,12 +324,12 @@
       </div>
       <div class="proj-link">GitHub ↗</div>
     </a>
-    <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj">
+    <a href="https://github.com/jaydenwilliams-cyber/Sysmon-Detection-Lab" target="_blank" class="proj">
       <div>
-        <div class="proj-ep">Bounty · Apr 2026</div>
-        <div class="proj-name">24-HOUR AWS HONEYPOT LAB</div>
-        <div class="proj-desc">Deployed T-Pot 24.04.1 on AWS EC2 and captured 63 attacks from 5 unique source IPs within 24 hours. Detected NMAP recon and SSH brute force. Mapped TTPs to 5 MITRE ATT&CK techniques using Kibana and Suricata.</div>
-        <div class="tags"><span class="tag">T-Pot</span><span class="tag">AWS EC2</span><span class="tag">Kibana</span><span class="tag">Elasticsearch</span><span class="tag">Suricata</span></div>
+        <div class="proj-ep">Bounty · Feb 2026</div>
+        <div class="proj-name">SYSMON DETECTION LAB</div>
+        <div class="proj-desc">Installed and configured Sysmon on a Windows 10 VM with a custom XML ruleset. Captured 7+ command executions via Event ID 1. Simulated living-off-the-land techniques using encoded PowerShell.</div>
+        <div class="tags"><span class="tag">Sysmon</span><span class="tag">PowerShell</span><span class="tag">Windows</span><span class="tag">MITRE ATT&CK</span></div>
       </div>
       <div class="proj-link">GitHub ↗</div>
     </a>
