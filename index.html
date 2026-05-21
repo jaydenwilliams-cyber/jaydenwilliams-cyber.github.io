@@ -202,9 +202,47 @@
     .hero-content { flex-direction: column-reverse; align-items: flex-start; }
     .hero-avatar { width: 180px; height: 180px; align-self: center; }
   }
+
+  /* ── Scroll progress bar ── */
+  #scroll-bar { position:fixed; top:0; left:0; height:3px; width:0%; background:var(--gold); z-index:10000; pointer-events:none; }
+
+  /* ── Custom cursor ── */
+  body { cursor:none; }
+  #cur-dot { position:fixed; width:7px; height:7px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:left 0.04s linear,top 0.04s linear; }
+  #cur-ring { position:fixed; width:28px; height:28px; border:1.5px solid rgba(212,168,67,0.55); border-radius:50%; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); transition:left 0.11s ease,top 0.11s ease; }
+
+  /* ── Terminal project cards (Bounties section only) ── */
+  .term-list { background:#010108 !important; border:1px solid rgba(212,168,67,0.15); }
+  .term-list .proj { background:#020209 !important; border-bottom:1px solid rgba(212,168,67,0.07) !important; }
+  .term-list .proj:hover { background:#07070f !important; }
+  .term-list .proj.feat { background:rgba(212,168,67,0.025) !important; border-left:2px solid var(--gold) !important; }
+  .term-list .proj::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.18) 3px,rgba(0,0,0,0.18) 4px); pointer-events:none; z-index:0; }
+  .term-list .proj > * { position:relative; z-index:1; }
+  .term-list .proj-ep { color:rgba(212,168,67,0.55); }
+  .term-list .proj-ep::before { content:'> '; color:var(--gold); }
+  .term-list .proj-name { font-family:var(--mono) !important; font-size:13px !important; letter-spacing:3px !important; color:var(--gold) !important; }
+  .term-list .proj-desc { color:rgba(184,184,204,0.7); }
+  .term-list .tag { border-color:rgba(212,168,67,0.2) !important; color:rgba(212,168,67,0.55) !important; background:rgba(212,168,67,0.03) !important; }
+  .term-list .proj-link { color:rgba(212,168,67,0.35); }
+  .term-list .proj:hover .proj-link { color:var(--gold); }
+  .term-list .proj::after { background:linear-gradient(to right,var(--gold),transparent) !important; }
+
+  /* ── Dossier stat cards ── */
+  .stat-panel { border:1px solid rgba(212,168,67,0.35) !important; background:#05050e !important; }
+  .stat-panel-head { background:rgba(212,168,67,0.07) !important; }
+  .stat-row { position:relative; overflow:hidden; }
+  .stat-row::before { content:'BOUNTY FILE'; position:absolute; right:10px; top:50%; transform:translateY(-50%); font-family:var(--mono); font-size:22px; font-weight:700; letter-spacing:5px; color:rgba(212,168,67,0.035); pointer-events:none; user-select:none; white-space:nowrap; }
+
+  /* ── Cert badge images ── */
+  .cert-badge-row { display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-bottom:28px; }
+  .cert-badge-row img { width:80px; height:80px; border-radius:50%; object-fit:contain; border:2px solid rgba(212,168,67,0.3); background:rgba(8,8,16,0.8); padding:4px; transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s; }
+  .cert-badge-row img:hover { transform:scale(1.1); border-color:var(--gold); box-shadow:0 0 14px rgba(212,168,67,0.3); }
 </style>
 </head>
 <body>
+<div id="scroll-bar"></div>
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
 <div class="stars"></div>
 <div class="smoke"></div>
 <div id="star-field"></div>
@@ -233,6 +271,11 @@
         <span class="badge g">✓ Security+</span>
         <span class="badge g">✓ CySA+</span>
         <span class="badge g">✓ CSAP Stackable</span>
+      </div>
+      <div class="cert-badge-row">
+        <img src="comptia-security-ce-certification.png" alt="CompTIA Security+ CE">
+        <img src="comptia-cysa-ce-certification.png" alt="CompTIA CySA+ CE">
+        <img src="comptia-security-analytics-professional-csap-stackable-certification.png" alt="CompTIA CSAP Stackable">
       </div>
       <div class="hero-btns">
         <a href="#projects" class="btn btn-gold">View Projects</a>
@@ -286,7 +329,7 @@
     <div class="sec-title">BOUNTIES</div>
     <div class="sec-sub">Active hunts, each one documented</div>
   </div>
-  <div class="proj-list fade">
+  <div class="proj-list term-list fade">
     <a href="https://github.com/jaydenwilliams-cyber/cowboy-bebop-threat-hunting-lab" target="_blank" class="proj feat">
       <div>
         <div class="proj-ep">Featured Bounty · May 2026 · Published on Medium</div>
@@ -557,6 +600,33 @@
       }
     }
     tick();
+  })();
+
+  // Scroll progress bar
+  (function() {
+    var bar = document.getElementById('scroll-bar');
+    window.addEventListener('scroll', function() {
+      var pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = Math.min(pct, 100) + '%';
+    }, { passive: true });
+  })();
+
+  // Custom cursor
+  (function() {
+    var dot = document.getElementById('cur-dot');
+    var ring = document.getElementById('cur-ring');
+    document.addEventListener('mousemove', function(e) {
+      dot.style.left = e.clientX + 'px';
+      dot.style.top = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseleave', function() {
+      dot.style.opacity = '0'; ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', function() {
+      dot.style.opacity = '1'; ring.style.opacity = '1';
+    });
   })();
 
   (function() {
