@@ -167,7 +167,7 @@
   .f-l span { color: var(--gold); }
   .f-r { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--text-dim); }
 
-  .fade { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
   .fade.in { opacity: 1; transform: none; }
 
   /* Marquee bar */
@@ -233,10 +233,52 @@
   .stat-row { position:relative; overflow:hidden; }
   .stat-row::before { content:'BOUNTY FILE'; position:absolute; right:10px; top:50%; transform:translateY(-50%); font-family:var(--mono); font-size:22px; font-weight:700; letter-spacing:5px; color:rgba(212,168,67,0.035); pointer-events:none; user-select:none; white-space:nowrap; }
 
-  /* ── Cert badge images ── */
+  /* ── Cert badge images (hero row) ── */
   .cert-badge-row { display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-bottom:28px; }
   .cert-badge-row img { width:80px; height:80px; border-radius:50%; object-fit:contain; border:2px solid rgba(212,168,67,0.3); background:rgba(8,8,16,0.8); padding:4px; transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s; }
   .cert-badge-row img:hover { transform:scale(1.1); border-color:var(--gold); box-shadow:0 0 14px rgba(212,168,67,0.3); }
+
+  /* ── Skill bars (Arsenal) ── */
+  .skill-bars { border:1px solid rgba(212,168,67,0.15); background:#020209; overflow:hidden; }
+  .skill-bar-item { padding:18px 28px; border-bottom:1px solid rgba(212,168,67,0.07); }
+  .skill-bar-item:last-child { border-bottom:none; }
+  .skill-bar-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .skill-bar-label { font-family:var(--mono); font-size:9px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; }
+  .skill-bar-label::before { content:'> '; color:rgba(212,168,67,0.45); }
+  .skill-bar-pct { font-family:var(--mono); font-size:9px; letter-spacing:2px; color:var(--text-dim); }
+  .skill-bar-track { background:rgba(212,168,67,0.06); height:6px; width:100%; border:1px solid rgba(212,168,67,0.1); }
+  .skill-bar-fill { height:100%; width:0%; background:linear-gradient(to right,var(--orange),var(--gold)); transition:width 1.2s cubic-bezier(0.22,1,0.36,1); }
+
+  /* ── Education cards – unified terminal style ── */
+  .edu-list .proj { background:#020209 !important; border-left:2px solid rgba(212,168,67,0.4) !important; }
+  .edu-list .proj.feat { background:#020209 !important; border-left:2px solid var(--gold) !important; }
+  .edu-list .proj-ep::before { content:'> '; color:var(--gold); }
+  .edu-list .proj-name { font-family:var(--mono) !important; font-size:13px !important; letter-spacing:3px !important; color:var(--gold) !important; }
+
+  /* ── Logs card terminal restyle ── */
+  .writing-feat { background:#020209 !important; border:1px solid rgba(212,168,67,0.15) !important; }
+  .writing-feat::before { content:'' !important; position:absolute; inset:0; background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.18) 3px,rgba(0,0,0,0.18) 4px); pointer-events:none; z-index:0; font-size:0; }
+  .writing-feat > * { position:relative; z-index:1; }
+  .writing-feat:hover { background:#07070f !important; border-color:rgba(212,168,67,0.35) !important; }
+  .writing-ep::before { content:'> '; color:var(--gold); }
+  .writing-title { font-family:var(--mono) !important; font-size:clamp(14px,2.2vw,20px) !important; letter-spacing:2px !important; color:var(--gold) !important; line-height:1.5 !important; }
+
+  /* ── Cert card badge (inside card, top-right) ── */
+  .cert-card { padding-right:90px; }
+  .cert-card-badge { position:absolute; top:16px; right:16px; width:60px; height:60px; border-radius:50%; object-fit:contain; border:1.5px solid rgba(212,168,67,0.25); background:rgba(8,8,16,0.7); padding:3px; opacity:0.85; transition:opacity 0.2s,transform 0.2s; pointer-events:none; }
+  .cert-card:hover .cert-card-badge { opacity:1; transform:scale(1.06); }
+
+  /* ── Mobile fixes ── */
+  @media (max-width: 768px) {
+    .cert-badge-row img { width:62px; height:62px; }
+    .cert-card { padding-right:28px; }
+    .cert-card-badge { display:none; }
+    .skill-bar-item { padding:14px 18px; }
+    .term-list .proj { padding:20px 20px; }
+    .writing-title { font-size:14px !important; }
+    .skill-bar-label { font-size:8px; letter-spacing:1px; }
+    .edu-list .proj-name { font-size:11px !important; }
+  }
 </style>
 </head>
 <body>
@@ -405,7 +447,7 @@
     <div class="sec-num">Academic</div>
     <div class="sec-title">EDUCATION</div>
   </div>
-  <div class="proj-list fade">
+  <div class="proj-list edu-list fade">
     <div class="proj" style="display:block;">
       <div class="proj-ep">Expected 2028</div>
       <div class="proj-name">UNIVERSITY OF SOUTH FLORIDA</div>
@@ -427,13 +469,31 @@
     <div class="sec-title">ARSENAL</div>
     <div class="sec-sub">Tools of the trade</div>
   </div>
-  <div class="skills-tbl fade">
-    <div class="skills-hdr"><span>Category</span><span>Tools &amp; Technologies</span></div>
-    <div class="skill-row"><span class="skill-cat">Security Tools</span><div class="skill-items"><span class="chip">Splunk</span><span class="chip">Sysmon</span><span class="chip">Wireshark</span><span class="chip">Tenable Nessus</span><span class="chip">VirtualBox</span><span class="chip">Kali Linux</span></div></div>
-    <div class="skill-row"><span class="skill-cat">Languages</span><div class="skill-items"><span class="chip">Python</span><span class="chip">C++ (in progress)</span><span class="chip">SQL</span><span class="chip">PowerShell</span><span class="chip">Bash</span></div></div>
-    <div class="skill-row"><span class="skill-cat">Cloud &amp; Infrastructure</span><div class="skill-items"><span class="chip">Azure</span><span class="chip">AWS EC2</span><span class="chip">Git</span><span class="chip">VMware</span></div></div>
-    <div class="skill-row"><span class="skill-cat">Frameworks</span><div class="skill-items"><span class="chip">MITRE ATT&amp;CK</span><span class="chip">NIST CSF</span><span class="chip">CVSS</span><span class="chip">OWASP Top 10</span><span class="chip">SIEM</span><span class="chip">Threat Detection</span><span class="chip">Vulnerability Management</span><span class="chip">Threat Hunting</span><span class="chip">Network Traffic Analysis</span></div></div>
-    <div class="skill-row"><span class="skill-cat">Honeypot &amp; SIEM</span><div class="skill-items"><span class="chip">T-Pot</span><span class="chip">Kibana</span><span class="chip">Elasticsearch</span><span class="chip">Suricata</span></div></div>
+  <div class="skill-bars fade">
+    <div class="skill-bar-item">
+      <div class="skill-bar-header"><span class="skill-bar-label">SIEM &amp; Log Analysis</span><span class="skill-bar-pct">90%</span></div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+    </div>
+    <div class="skill-bar-item">
+      <div class="skill-bar-header"><span class="skill-bar-label">Threat Detection</span><span class="skill-bar-pct">85%</span></div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+    </div>
+    <div class="skill-bar-item">
+      <div class="skill-bar-header"><span class="skill-bar-label">Incident Response</span><span class="skill-bar-pct">80%</span></div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+    </div>
+    <div class="skill-bar-item">
+      <div class="skill-bar-header"><span class="skill-bar-label">Cloud Security</span><span class="skill-bar-pct">75%</span></div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+    </div>
+    <div class="skill-bar-item">
+      <div class="skill-bar-header"><span class="skill-bar-label">Scripting &amp; Automation</span><span class="skill-bar-pct">70%</span></div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
+    </div>
+    <div class="skill-bar-item">
+      <div class="skill-bar-header"><span class="skill-bar-label">Vulnerability Management</span><span class="skill-bar-pct">75%</span></div>
+      <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+    </div>
   </div>
 </section>
 
@@ -447,6 +507,7 @@
   </div>
   <div class="certs-grid fade">
     <a href="CompTIA_SecurityPlus_Certificate.pdf" target="_blank" class="cert-card">
+      <img class="cert-card-badge" src="comptia-security-ce-certification.png" alt="Security+ badge">
       <div class="cert-ep">CompTIA · Mar 2026</div>
       <div class="cert-name">SECURITY+</div>
       <div class="cert-detail">SY0-701 · Valid through Mar 2029<br>ID: COMP001023011776</div>
@@ -454,6 +515,7 @@
 <span class="cert-dl">View PDF ↗</span>
     </a>
     <a href="CompTIA_CySA_Certificate.pdf" target="_blank" class="cert-card">
+      <img class="cert-card-badge" src="comptia-cysa-ce-certification.png" alt="CySA+ badge">
       <div class="cert-ep">CompTIA · Apr 2026</div>
       <div class="cert-name">CYSA+</div>
       <div class="cert-detail">CS0-003 · Valid through Apr 2029<br>ID: COMP001023011776</div>
@@ -461,6 +523,7 @@
 <span class="cert-dl">View PDF ↗</span>
     </a>
     <a href="CompTIA_CSAP_Certificate.pdf" target="_blank" class="cert-card">
+      <img class="cert-card-badge" src="comptia-security-analytics-professional-csap-stackable-certification.png" alt="CSAP badge">
       <div class="cert-ep">CompTIA · Apr 2026</div>
       <div class="cert-name">SECURITY ANALYTICS PROFESSIONAL</div>
       <div class="cert-detail">CSAP Stackable · Security+ + CySA+<br>ID: COMP001023011776</div>
@@ -627,6 +690,23 @@
     document.addEventListener('mouseenter', function() {
       dot.style.opacity = '1'; ring.style.opacity = '1';
     });
+  })();
+
+  // Skill bar animation
+  (function() {
+    var fills = document.querySelectorAll('.skill-bar-fill');
+    if (!fills.length) return;
+    var fired = false;
+    function animateBars() {
+      if (fired) return;
+      fired = true;
+      fills.forEach(function(fill) { fill.style.width = fill.dataset.width + '%'; });
+    }
+    var container = document.querySelector('.skill-bars');
+    if (!container) { animateBars(); return; }
+    new IntersectionObserver(function(entries, ob) {
+      if (entries[0].isIntersecting) { animateBars(); ob.disconnect(); }
+    }, { threshold: 0.2 }).observe(container);
   })();
 
   (function() {
