@@ -98,7 +98,7 @@
   .stat-panel-head { background: rgba(212,168,67,0.06); border-bottom: 1px solid var(--border); padding: 11px 20px; font-size: 9px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
   .stat-row { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
   .stat-row:last-child { border-bottom: none; }
-  .stat-k { font-size: 9px; letter-spacing: 1px; color: var(--text-dim); }
+  .stat-k { font-size: 9px; letter-spacing: 1px; color: #d0d0e0; }
   .stat-v { font-family: var(--display); font-size: 20px; color: var(--gold); letter-spacing: 2px; }
 
   .proj-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
@@ -230,8 +230,6 @@
   /* ── Dossier stat cards ── */
   .stat-panel { border:1px solid rgba(212,168,67,0.35) !important; background:#05050e !important; }
   .stat-panel-head { background:rgba(212,168,67,0.07) !important; }
-  .stat-row { position:relative; overflow:hidden; }
-  .stat-row::before { content:'BOUNTY FILE'; position:absolute; right:10px; top:50%; transform:translateY(-50%); font-family:var(--mono); font-size:22px; font-weight:700; letter-spacing:5px; color:rgba(212,168,67,0.035); pointer-events:none; user-select:none; white-space:nowrap; }
 
   /* ── Cert badge images (hero row) ── */
   .cert-badge-row { display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-bottom:28px; }
@@ -267,6 +265,25 @@
   .cert-card { padding-right:90px; }
   .cert-card-badge { position:absolute; top:16px; right:16px; width:60px; height:60px; border-radius:50%; object-fit:contain; border:1.5px solid rgba(212,168,67,0.25); background:rgba(8,8,16,0.7); padding:3px; opacity:0.85; transition:opacity 0.2s,transform 0.2s; pointer-events:none; }
   .cert-card:hover .cert-card-badge { opacity:1; transform:scale(1.06); }
+
+  /* ── Open credentials grid (no card boxes) ── */
+  .certs-grid { background:transparent !important; gap:32px !important; }
+  .certs-grid .cert-card { background:transparent !important; border:none !important; padding:0 16px !important; align-items:center !important; text-align:center !important; }
+  .certs-grid .cert-card:hover { background:transparent !important; }
+  .certs-grid .cert-card-badge { position:static !important; width:110px !important; height:110px !important; margin:0 auto 18px !important; display:block !important; opacity:1 !important; border:2px solid rgba(212,168,67,0.3) !important; }
+  .certs-grid .cert-card:hover .cert-card-badge { transform:scale(1.07) !important; box-shadow:0 0 20px rgba(212,168,67,0.25) !important; }
+  .certs-grid .cert-ep, .certs-grid .cert-name, .certs-grid .cert-detail { text-align:center; width:100%; }
+  .certs-grid .cert-st { align-self:center !important; margin-top:10px; }
+  .certs-grid .cert-dl { display:none !important; }
+
+  /* ── Dossier terminal restyle ── */
+  .resume-panel { background:#020209 !important; border:1px solid rgba(212,168,67,0.15) !important; position:relative !important; overflow:hidden !important; }
+  .resume-panel::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.18) 3px,rgba(0,0,0,0.18) 4px); pointer-events:none; z-index:0; }
+  .resume-hdr { background:rgba(212,168,67,0.04) !important; border-bottom:1px solid rgba(212,168,67,0.1) !important; position:relative; z-index:1; }
+  .resume-body { position:relative; z-index:1; }
+  .resume-hdr-t::before { content:'> '; color:rgba(212,168,67,0.5); }
+  .resume-info { color:rgba(184,184,204,0.75) !important; }
+  .resume-info strong { color:var(--gold) !important; }
 
   /* ── Mobile fixes ── */
   @media (max-width: 768px) {
@@ -427,7 +444,7 @@
     <div class="sec-num">Active</div>
     <div class="sec-title">CURRENTLY BUILDING</div>
   </div>
-  <div class="proj-list fade">
+  <div class="proj-list term-list fade">
     <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="proj feat">
       <div>
         <div class="proj-ep">Lab · In Progress · 2026 · Second Medium Post</div>
@@ -723,7 +740,7 @@
       done = true;
       var start = performance.now();
       (function tick(now) {
-        var p = Math.min((now - start) / 1500, 1);
+        var p = Math.min((now - start) / 1800, 1);
         var e = easeOut(p);
         counters.forEach(function(el) {
           var dec = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
@@ -734,9 +751,9 @@
     }
     var panel = document.querySelector('.stat-panel');
     if (!panel) { run(); return; }
-    new IntersectionObserver(function(entries, obs) {
-      if (entries[0].isIntersecting) { run(); obs.disconnect(); }
-    }, { threshold: 0.3 }).observe(panel);
+    new IntersectionObserver(function(entries, ob) {
+      if (entries[0].isIntersecting) { setTimeout(run, 200); ob.disconnect(); }
+    }, { threshold: 0.15 }).observe(panel);
   })();
 </script>
 </body>
