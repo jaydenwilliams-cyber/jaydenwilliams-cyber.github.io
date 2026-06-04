@@ -46,7 +46,8 @@ a:hover{text-decoration:underline}
 .field-val{font-size:9px;color:var(--ink);margin-top:1px}
 .field-val.ok{color:var(--green)}
 
-.main{padding:20px 28px;display:grid;grid-template-columns:1fr 260px;gap:22px}
+.main{padding:20px 28px;display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:22px}
+.main > div{min-width:0}
 .section-label{font-size:7px;letter-spacing:4px;color:var(--faint);margin-bottom:10px;border-bottom:0.5px solid var(--rule);padding-bottom:4px}
 
 .incidents{display:flex;flex-direction:column;gap:6px}
