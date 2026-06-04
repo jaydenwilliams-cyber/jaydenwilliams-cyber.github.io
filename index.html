@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -117,10 +117,38 @@ a:hover{text-decoration:underline}
 .footer-sig{font-family:'Bebas Neue',cursive;font-size:14px;color:var(--navy);letter-spacing:3px}
 .footer-credit{font-size:7px;color:var(--faint);letter-spacing:1px;font-style:italic}
 
+@media(max-width:768px){
+  .topbar{padding:8px 16px}
+  .nav{padding:6px 16px;gap:14px;flex-wrap:wrap}
+  .subject{padding:16px;gap:14px}
+  .main{padding:16px;gap:16px}
+  .footer{padding:10px 16px}
+}
+
 @media(max-width:640px){
   .main{grid-template-columns:1fr}
   .field-grid{grid-template-columns:repeat(2,1fr)}
   .subject{grid-template-columns:100px 1fr}
+  .subject-name{font-size:30px}
+  .ir-body{font-size:12px;line-height:1.75}
+  .field-val{font-size:11px}
+  .ir-title{font-size:14px}
+  .nav a{letter-spacing:1px}
+  .case-ref{display:none}
+  .comms-item{flex-wrap:wrap;gap:4px}
+}
+
+@media(max-width:420px){
+  .subject{grid-template-columns:1fr;text-align:center}
+  .photo{margin:0 auto}
+  .field-grid{grid-template-columns:1fr 1fr}
+  .subject-name{font-size:26px}
+  .logo{font-size:18px;letter-spacing:2px}
+  .nav{gap:10px}
+  .nav a{font-size:8px}
+  .ir-body{font-size:13px}
+  .field-val{font-size:12px}
+  .ir-tags{gap:5px}
 }
 </style>
 </head>
