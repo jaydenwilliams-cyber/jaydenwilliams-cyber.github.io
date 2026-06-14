@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jayden Williams · Cybersecurity</title>
-<meta name="description" content="Jayden Williams — Cybersecurity student at HCC Tampa. Security+ and CySA+ certified. Six blue team labs including Splunk threat hunting, AWS honeypot, and Wireshark automation. Transferring to USF Fall 2027.">
+<meta name="description" content="Jayden Williams — Cybersecurity student at HCC Tampa. Security+ and CySA+ certified. Five blue team labs including Splunk threat hunting, static malware analysis, AWS honeypot, and more. Transferring to USF Fall 2027.">
 <meta property="og:title" content="Jayden Williams · Cybersecurity">
-<meta property="og:description" content="Jayden Williams — Cybersecurity student at HCC Tampa. Security+ and CySA+ certified. Six blue team labs including Splunk threat hunting, AWS honeypot, and Wireshark automation. Transferring to USF Fall 2027.">
+<meta property="og:description" content="Jayden Williams — Cybersecurity student at HCC Tampa. Security+ and CySA+ certified. Five blue team labs including Splunk threat hunting, static malware analysis, AWS honeypot, and more. Transferring to USF Fall 2027.">
 <meta property="og:url" content="https://jaydenwilliams-cyber.github.io">
 <meta property="og:image" content="https://images.credly.com/images/80d8a06a-c384-42bf-ad36-db81bce5adce/blob">
 <link rel="canonical" href="https://jaydenwilliams-cyber.github.io">
@@ -532,38 +532,38 @@ a:hover{color:var(--amber)}
 
   <div class="project">
     <div class="project-meta">
-      <span class="project-tag">Endpoint Detection</span>
+      <span class="project-tag">Malware Analysis</span>
+      <span class="project-tag">Static Analysis</span>
       <span class="project-tag">MITRE ATT&amp;CK</span>
-      <span class="project-date">Feb 2026</span>
+      <span class="project-date">Jun 2026</span>
     </div>
     <div class="project-body">
       <div class="project-left">
-        <div class="project-title">Sysmon</div>
-        <div class="project-subtitle">Detection Lab</div>
-        <p class="project-desc">Configured Sysmon on a Windows 10 VM using a custom XML ruleset tuned for noise reduction. Captured 7+ process creation events via Event ID 1, then ran encoded PowerShell to simulate LOLBin techniques and confirm the telemetry held up.</p>
+        <div class="project-title">Static Malware</div>
+        <div class="project-subtitle">Analysis Lab</div>
+        <p class="project-desc">Static analysis of Jigsaw ransomware using PEStudio and VirusTotal. Identified hardcoded Bitcoin address, ransom note text, and target file extensions. MITRE ATT&amp;CK mapped across 15 techniques. Sample sourced from MalwareBazaar.</p>
         <div class="project-tools">
-          <span class="project-tool">Sysmon</span>
-          <span class="project-tool">PowerShell</span>
-          <span class="project-tool">Windows</span>
+          <span class="project-tool">PEStudio</span>
+          <span class="project-tool">VirusTotal</span>
+          <span class="project-tool">MalwareBazaar</span>
           <span class="project-tool">MITRE ATT&amp;CK</span>
         </div>
-        <a href="https://github.com/jaydenwilliams-cyber/Sysmon-Detection-Lab" target="_blank" class="project-link">View on GitHub ↗</a>
+        <a href="https://github.com/jaydenwilliams-cyber/jigsaw-static-analysis-lab" target="_blank" class="project-link">View on GitHub ↗</a>
       </div>
       <div class="project-terminal">
-        <div class="terminal-bar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-title">Sysmon · Event ID 1 · Windows 10</span></div>
+        <div class="terminal-bar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-title">PEStudio · JigsawRansomware.exe</span></div>
         <div class="terminal-body">
-          <div class="t-comment"># Sysmon64.exe -i sysmonconfig.xml</div>
-          <div class="t-comment"># Log: Microsoft-Windows-Sysmon/Operational</div><br>
-          <div class="t-comment"># Commands executed + logged</div>
-          <div><span class="t-amber">powershell -Command "Get-Process"</span></div>
-          <div><span class="t-red">powershell -ExecutionPolicy Bypass</span></div>
-          <div><span class="t-val">  -NoProfile -Command "Write-Output test"</span></div>
-          <div><span class="t-ok">whoami</span></div>
-          <div><span class="t-ok">ipconfig</span></div>
-          <div><span class="t-ok">tasklist</span></div><br>
-          <div class="t-comment"># Event ID 1 confirmed</div>
-          <div><span class="t-val">Image: C:\Windows\System32\</span></div>
-          <div><span class="t-val">  WindowsPowerShell1.0\powershell.exe</span></div>
+          <div class="t-comment"># SHA256: F32A14E2...548BF687</div>
+          <div class="t-comment"># Source: MalwareBazaar · tag:Jigsaw</div><br>
+          <div class="t-row"><span class="t-cmd">entropy</span><span class="t-warn">7.356 <span class="t-tag t-warn">obfuscated</span></span></div>
+          <div class="t-row"><span class="t-cmd">compiler</span><span class="t-val">Microsoft Linker 48.0 / .NET</span></div>
+          <div class="t-row"><span class="t-cmd">virustotal</span><span class="t-red">56 / 72 <span class="t-tag t-red">malicious</span></span></div><br>
+          <div class="t-comment"># Suspicious imports flagged</div>
+          <div><span class="t-red">CreateEncryptor · EncryptFile · DecryptFile</span></div>
+          <div><span class="t-amber">SetStartupRegistry · GetProcess</span></div><br>
+          <div class="t-comment"># Hardcoded IOCs</div>
+          <div><span class="t-val">BTC: 12Xspzstah37626slkwKhsKSH</span></div>
+          <div><span class="t-val">ext: .locked · bat: DeleteItself.bat</span></div>
         </div>
       </div>
     </div>
@@ -572,17 +572,17 @@ a:hover{color:var(--amber)}
   <div class="project project-active">
     <div class="project-meta">
       <span class="project-tag">Malware Analysis</span>
-      <span class="project-tag">Static Analysis</span>
+      <span class="project-tag">Dynamic Analysis</span>
       <span class="project-date">2026 · Active</span>
     </div>
     <div class="project-body" style="grid-template-columns:1fr">
       <div class="project-left">
         <div class="project-title">Cowboy Bebop</div>
         <div class="project-subtitle">Malware Analysis Lab</div>
-        <p class="project-desc">Isolated lab doing static analysis on real samples pulled from MalwareBazaar. PEStudio workflow: strings, hashes, PE headers, entropy. Every IOC mapped to a MITRE ATT&CK technique. Dynamic analysis phase in progress.</p>
+        <p class="project-desc">Dynamic Malware Analysis Lab — Cowboy Bebop themed. Process Monitor, Wireshark, live detonation, MITRE ATT&amp;CK mapping.</p>
         <div class="project-tools">
-          <span class="project-tool">PEStudio</span>
-          <span class="project-tool">VirusTotal</span>
+          <span class="project-tool">Process Monitor</span>
+          <span class="project-tool">Wireshark</span>
           <span class="project-tool">MalwareBazaar</span>
           <span class="project-tool">MITRE ATT&amp;CK</span>
         </div>
