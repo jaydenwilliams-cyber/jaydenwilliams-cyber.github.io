@@ -416,37 +416,38 @@ a:hover{color:var(--amber)}
     <div class="project-meta">
       <span class="project-tag">Malware Analysis</span>
       <span class="project-tag">Static Analysis</span>
+      <span class="project-tag">Dynamic Analysis</span>
       <span class="project-tag">MITRE ATT&amp;CK</span>
       <span class="project-date">Jun 2026</span>
     </div>
     <div class="project-body">
       <div class="project-left">
-        <div class="project-title">Static Malware</div>
-        <div class="project-subtitle">Analysis Lab</div>
-        <p class="project-desc">Static analysis of Jigsaw ransomware using PEStudio and VirusTotal. Extracted hardcoded Bitcoin address, ransom note text, and file extension targets. 56/72 VirusTotal detections. 15 MITRE ATT&amp;CK techniques mapped.</p>
+        <div class="project-title">Jigsaw</div>
+        <div class="project-subtitle">Malware Analysis</div>
+        <p class="project-desc">Full malware analysis of a 2016 ransomware sample. Static analysis with PEStudio uncovered hardcoded ransom notes, a Bitcoin address, and anti-VM behavior. Dynamic analysis on Swordfish II captured persistence mechanisms, process behavior, and AppData artifacts using Process Monitor. MITRE ATT&amp;CK mapped across both phases.</p>
         <div class="project-tools">
           <span class="project-tool">PEStudio</span>
+          <span class="project-tool">Process Monitor</span>
+          <span class="project-tool">Wireshark</span>
           <span class="project-tool">VirusTotal</span>
-          <span class="project-tool">MalwareBazaar</span>
-          <span class="project-tool">MITRE ATT&amp;CK</span>
+          <span class="project-tool">VirtualBox</span>
         </div>
-        <a href="https://github.com/jaydenwilliams-cyber/jigsaw-static-analysis-lab" target="_blank" class="project-link">View on GitHub ↗</a>
-        <a href="https://medium.com/p/43d2a0759624" target="_blank" class="project-link">Read Write-Up ↗</a>
+        <a href="https://github.com/jaydenwilliams-cyber/jigsaw-malware-analysis" target="_blank" class="project-link">View on GitHub ↗</a>
+        <a href="https://medium.com/p/43d2a0759624" target="_blank" class="project-link">Static Write-Up ↗</a>
+        <a href="https://medium.com/@jwilliams.cyber/hunting-jigsaw-on-swordfish-ii-dynamic-analysis-with-process-monitor-bf9d59f871f9" target="_blank" class="project-link">Dynamic Write-Up ↗</a>
       </div>
       <div class="project-terminal">
-        <div class="terminal-bar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-title">PEStudio · JigsawRansomware.exe</span></div>
+        <div class="terminal-bar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-title">PEStudio + ProcMon · JigsawRansomware.exe</span></div>
         <div class="terminal-body">
           <div class="t-comment"># SHA256: F32A14E2...548BF687</div>
           <div class="t-comment"># Source: MalwareBazaar · tag:Jigsaw</div><br>
           <div class="t-row"><span class="t-cmd">entropy</span><span class="t-warn">7.356 <span class="t-tag t-warn">obfuscated</span></span></div>
-          <div class="t-row"><span class="t-cmd">compiler</span><span class="t-val">Microsoft Linker 48.0 / .NET</span></div>
           <div class="t-row"><span class="t-cmd">virustotal</span><span class="t-red">56 / 72 <span class="t-tag t-red">malicious</span></span></div><br>
-          <div class="t-comment"># Suspicious imports flagged</div>
-          <div><span class="t-red">CreateEncryptor · EncryptFile · DecryptFile</span></div>
-          <div><span class="t-amber">SetStartupRegistry · GetProcess</span></div><br>
-          <div class="t-comment"># Hardcoded IOCs</div>
-          <div><span class="t-val">BTC: 12Xspzstah37626slkwKhsKSH</span></div>
-          <div><span class="t-val">ext: .locked · bat: DeleteItself.bat</span></div>
+          <div class="t-comment"># Dynamic — ProcMon (3.6M events)</div>
+          <div class="t-row"><span class="t-red">deltasec.exe → AppData\Roaming</span><span class="t-tag t-red">PERSIST</span></div>
+          <div class="t-row"><span class="t-amber">RegQueryKey HKLM\SOFTWARE</span><span class="t-tag t-warn">T1012</span></div>
+          <div class="t-row"><span class="t-ok">Encryption: not triggered</span><span class="t-tag">Win11</span></div><br>
+          <div class="t-comment"># MITRE: T1486·T1547·T1036·T1083·T1012</div>
         </div>
       </div>
     </div>
@@ -572,28 +573,6 @@ a:hover{color:var(--amber)}
 
   
 
-  <div class="project project-active">
-    <div class="project-meta">
-      <span class="project-tag">Malware Analysis</span>
-      <span class="project-tag">Dynamic Analysis</span>
-      <span class="project-date">2026 · Active</span>
-    </div>
-    <div class="project-body" style="grid-template-columns:1fr">
-      <div class="project-left">
-        <div class="project-title">Cowboy Bebop</div>
-        <div class="project-subtitle">Malware Analysis Lab</div>
-        <p class="project-desc">Dynamic Malware Analysis Lab — Cowboy Bebop themed. Process Monitor, Wireshark, live detonation, MITRE ATT&amp;CK mapping.</p>
-        <div class="project-tools">
-          <span class="project-tool">Process Monitor</span>
-          <span class="project-tool">Wireshark</span>
-          <span class="project-tool">MalwareBazaar</span>
-          <span class="project-tool">MITRE ATT&amp;CK</span>
-        </div>
-        <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="project-link">In Progress ⧗</a>
-      </div>
-
-    </div>
-  </div>
 </section>
 
 <!-- CONTACT -->
