@@ -536,20 +536,23 @@ a:hover{color:var(--amber)}
       <span class="project-tag">Network Forensics</span>
       <span class="project-tag">Traffic Analysis</span>
       <span class="project-tag">Python</span>
-      <span class="project-date">Mar 2026</span>
+      <span class="project-tag">Malware Traffic</span>
+      <span class="project-date">Mar–Jun 2026</span>
     </div>
     <div class="project-body">
       <div class="project-left">
         <div class="project-title">Wireshark</div>
         <div class="project-subtitle">Traffic Analysis Automation</div>
-        <p class="project-desc">Analyzed 24,834 packets to identify anomalous top-talker IPs and unexpected protocol distribution across TCP, UDP, QUIC, and TLSv1.3. Automated triage of raw PCAP exports using Python and Pandas to cut down initial investigation time.</p>
+        <p class="project-desc">Analyzed 24,834 packets to identify anomalous top-talker IPs and unexpected protocol distribution across TCP, UDP, QUIC, and TLSv1.3. Automated triage of raw PCAP exports using Python and Pandas to cut down initial investigation time. Extended the project to include real-world malware PCAP analysis, investigating a Koi Stealer infection from Malware-Traffic-Analysis.net, identifying C2 beaconing to 79.124.78.197 via POST requests to /index.php and /foots.php, and correlating Suricata alerts with Wireshark HTTP stream analysis to confirm credential exfiltration.</p>
         <div class="project-tools">
           <span class="project-tool">Wireshark</span>
           <span class="project-tool">Python</span>
           <span class="project-tool">Pandas</span>
           <span class="project-tool">PCAP Analysis</span>
+          <span class="project-tool">Suricata</span>
+          <span class="project-tool">MITRE ATT&amp;CK</span>
         </div>
-        <a href="https://github.com/jaydenwilliams-cyber" target="_blank" class="project-link">View on GitHub ↗</a>
+        <a href="https://github.com/jaydenwilliams-cyber/wireshark-traffic-analysis" target="_blank" class="project-link">View on GitHub ↗</a>
       </div>
       <div class="project-terminal">
         <div class="terminal-bar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-title">Python · Wireshark CSV Analysis</span></div>
@@ -566,6 +569,31 @@ a:hover{color:var(--amber)}
           <div><span class="t-ok">top_dest_ips.csv</span></div>
           <div><span class="t-ok">protocol_summary.csv</span></div>
           <div><span class="t-ok">port_activity.csv</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="project-body" style="margin-top:1.5rem;border-top:1px solid rgba(212,168,67,0.15);padding-top:1.5rem">
+      <div class="project-left">
+        <div class="project-subtitle">Koi Stealer · Malware Traffic Analysis</div>
+        <p class="project-desc" style="font-size:0.82rem">Malware-Traffic-Analysis.net · "Big Fish in a Little Pond" (2024-09-04). Victim 172.17.0.99 on bepositive.com domain. C2 at 79.124.78.197:80 — nginx. Suricata ETPRO rule confirmed Koi Stealer C2 checkin. SMB scanning on 172.17.0.0/24 consistent with lateral movement.</p>
+        <div class="project-tools" style="margin-top:0.5rem">
+          <span class="project-tool">T1071.001</span>
+          <span class="project-tool">T1041</span>
+          <span class="project-tool">T1021.002</span>
+        </div>
+      </div>
+      <div class="project-terminal">
+        <div class="terminal-bar"><span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span><span class="terminal-title">Wireshark · Koi Stealer C2 Analysis</span></div>
+        <div class="terminal-body">
+          <div class="t-comment"># C2 beacon — GET /index.php (17:35:13 UTC)</div>
+          <div><span class="t-cmd">GET /index.php HTTP/1.1</span></div>
+          <div><span class="t-val">Host: 79.124.78.197</span></div>
+          <div><span class="t-val">Cookie: session=qIOuKk7U</span></div><br>
+          <div class="t-comment"># Exfil loop — POST /foots.php (~60s intervals)</div>
+          <div><span class="t-cmd">POST /foots.php HTTP/1.1</span></div>
+          <div><span class="t-val">Host: 79.124.78.197</span></div><br>
+          <div class="t-comment"># Suricata alert</div>
+          <div><span class="t-ok">ETPRO TROJAN Koi Stealer C2 Checkin</span></div>
         </div>
       </div>
     </div>
